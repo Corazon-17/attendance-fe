@@ -1,11 +1,9 @@
-"use client";
-
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, Ellipsis } from "lucide-react";
 import { Button } from "../ui/button";
 import { SelectNative } from "../ui/select-native";
 import { generatePaginationPages } from "./helpers/pagination";
-import { DataTablePaginationProps } from "./types";
+import type { DataTablePaginationProps } from "./types";
 
 export const DataTablePagination = (props: DataTablePaginationProps) => {
   const displayPages = generatePaginationPages(props.page, props.totalPages);
@@ -17,7 +15,7 @@ export const DataTablePagination = (props: DataTablePaginationProps) => {
   const showingEnd = end > props.totalItems ? props.totalItems : end;
 
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center gap-2">
+    <div className="flex flex-col md:flex-row justify-between items-center gap-2 text-sm">
       <div
         className={cn(
           "flex items-center gap-1",

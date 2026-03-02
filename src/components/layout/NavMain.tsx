@@ -1,5 +1,3 @@
-"use client";
-
 import {
   ChevronRight,
   ClockCheckIcon,
@@ -23,14 +21,8 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
+import type { Menu } from "@/types";
 import { Link } from "react-router";
-
-interface Menu {
-  id: string;
-  name: string;
-  url: string | null;
-  submenu: Menu[] | null;
-}
 
 interface NavMainProps {
   menu: Menu[] | null;
@@ -55,11 +47,11 @@ export function NavMain({ menu, groupName, activePath }: NavMainProps) {
             return (
               <SidebarMenuButton
                 key={item.id}
-                isActive={item.url === activePath?.slice(1)}
+                isActive={item.path === activePath}
                 asChild
               >
-                {item.url ? (
-                  <Link to={item.url}>
+                {item.path ? (
+                  <Link to={item.path}>
                     {menuIcons[item.id as MenuIconKey]}
                     <span>{item.name}</span>
                   </Link>
@@ -74,12 +66,7 @@ export function NavMain({ menu, groupName, activePath }: NavMainProps) {
           }
 
           return (
-            <Collapsible
-              key={item.id}
-              asChild
-              // defaultOpen={item.isActive}
-              className="group/collapsible"
-            >
+            <Collapsible key={item.id} asChild className="group/collapsible">
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton tooltip={item.name}>
@@ -93,11 +80,11 @@ export function NavMain({ menu, groupName, activePath }: NavMainProps) {
                     {item.submenu?.map((subItem) => (
                       <SidebarMenuSubItem key={subItem.name}>
                         <SidebarMenuSubButton
-                          isActive={item.url === activePath?.slice(1)}
+                          isActive={item.path === activePath?.slice(1)}
                           asChild
                         >
-                          {subItem.url ? (
-                            <Link to={subItem.url}>{subItem.name}</Link>
+                          {subItem.path ? (
+                            <Link to={subItem.path}>{subItem.name}</Link>
                           ) : (
                             <span>{subItem.name}</span>
                           )}

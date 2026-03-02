@@ -37,5 +37,10 @@ export type FilterQueryParams = {
   field?: string;
 };
 
+export type DateFilterQueryParams = {
+  from?: string;
+  to?: string;
+};
+
 export interface BasePaginationQueryParams
   extends PaginationQueryParams, SortingQueryParams, FilterQueryParams {}

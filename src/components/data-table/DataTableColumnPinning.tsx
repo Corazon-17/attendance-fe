@@ -1,6 +1,4 @@
-"use client";
-
-import { Header } from "@tanstack/react-table";
+import type { Header } from "@tanstack/react-table";
 import {
   ArrowLeftToLineIcon,
   ArrowRightToLineIcon,

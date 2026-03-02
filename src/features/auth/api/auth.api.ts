@@ -1,9 +1,6 @@
+import type { UserData } from "@/features/user/types/user.types";
 import { axiosApi } from "@/lib/axios";
-import type {
-  AuthResponse,
-  LoggedUserInfo,
-  LoginPayload,
-} from "../types/auth.types";
+import type { AuthResponse, LoginPayload } from "../types/auth.types";
 
 export const loginWithEmailAndPassword = (
   data: LoginPayload,
@@ -11,6 +8,6 @@ export const loginWithEmailAndPassword = (
   return axiosApi.post("/auth/login", data);
 };
 
-export const loggedUserInfo = (): Promise<LoggedUserInfo> => {
+export const loggedUserData = (): Promise<UserData> => {
   return axiosApi.get("/auth/me");
 };

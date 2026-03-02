@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 
 import {
@@ -13,51 +11,15 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
+import { menuList } from "@/constants/navigation";
+import { useUser } from "@/features/auth/queries/auth.query";
+import { useLocation } from "react-router";
 import { NavMain } from "./NavMain";
 import { NavUser } from "./NavUser";
 
-type Menu = {
-  id: string;
-  name: string;
-  url: string | null;
-  submenu: Menu[] | null;
-};
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const menus: Menu[] = [
-    {
-      id: "dashboard",
-      name: "Dashboard",
-      url: null,
-      submenu: [
-        {
-          id: "profile",
-          name: "Profile",
-          url: "/dashboard/profile",
-          submenu: [],
-        },
-        {
-          id: "attendance",
-          name: "Absensi",
-          url: "/dashboard/attendance",
-          submenu: [],
-        },
-        {
-          id: "attendance-history",
-          name: "Riwayat Absensi",
-          url: "/dashboard/attendance-history",
-          submenu: [],
-        },
-      ],
-    },
-  ];
-
-  const user = {
-    name: "Apid Kopassus",
-    email: "Satria Bergitar",
-    avatar:
-      "https://i.pinimg.com/564x/6e/0f/05/6e0f057d6d82cb6a1f1054c2b3504f92.jpg",
-  };
+  const { pathname } = useLocation();
+  const { data: userData } = useUser();
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -83,14 +45,19 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        {menus.map((menu) => {
+        {menuList.map((menu) => {
           return (
-            <NavMain key={menu.id} groupName={menu.name} menu={menu.submenu} />
+            <NavMain
+              key={menu.id}
+              groupName={menu.name}
+              menu={menu.submenu}
+              activePath={pathname}
+            />
           );
         })}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={user} />
+        <NavUser user={userData} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
