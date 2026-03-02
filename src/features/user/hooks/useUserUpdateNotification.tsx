@@ -1,8 +1,12 @@
 import { useEffect } from "react";
 import { toast } from "sonner";
 
-export const useUserUpdateNotifications = () => {
+export const useUserUpdateNotifications = (enabled: boolean) => {
   useEffect(() => {
+    if (!enabled) {
+      return;
+    }
+
     const eventSource = new EventSource(
       "http://localhost:3005/notifications/user-updated",
       { withCredentials: true },
@@ -23,5 +27,5 @@ export const useUserUpdateNotifications = () => {
     return () => {
       eventSource.close();
     };
-  }, []);
+  }, [enabled]);
 };

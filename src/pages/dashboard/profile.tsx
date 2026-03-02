@@ -111,7 +111,16 @@ export default function Profile() {
             <div className="flex items-center">
               <FieldLabel htmlFor="phone">No. HP</FieldLabel>
             </div>
-            <Input id="phone" placeholder="Phone" {...register("phone")} />
+            <Input
+              id="phone"
+              placeholder="Phone"
+              {...register("phone", {
+                onChange: (e) => {
+                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                },
+              })}
+            />
+
             {errors.phone && (
               <FieldError className="text-red-500">
                 {errors.phone.message}
