@@ -8,6 +8,10 @@ export const loginWithEmailAndPassword = (
   return axiosApi.post("/auth/login", data);
 };
 
+export const logout = (): Promise<null> => {
+  return axiosApi.post("/auth/logout");
+};
+
 export const loggedUserData = (): Promise<UserData> => {
   return axiosApi.get("/auth/me");
 };

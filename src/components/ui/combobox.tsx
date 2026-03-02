@@ -38,9 +38,7 @@ export function Combobox({ id, ...props }: ComboboxProps) {
   const [triggerRef, size] = useElementSize();
 
   const [open, setOpen] = useState<boolean>(false);
-  const [internalValue, setInternalValue] = useState<string>(
-    props.defaultValue || "",
-  );
+  const [internalValue, setInternalValue] = useState<string>("");
   const [search, setSearch] = useState<string>("");
 
   const isControlled = props.value !== undefined;

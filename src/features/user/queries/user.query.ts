@@ -1,11 +1,19 @@
 import type { QueryOptions } from "@/types/query";
 import { useQuery } from "@tanstack/react-query";
-import { allUsers } from "../api/user.api";
+import { getAllUserPositions, getAllUsers } from "../api/user.api";
 
-export const useAllUsers = (options?: QueryOptions) => {
+export const useUsers = (options?: QueryOptions) => {
   return useQuery({
     queryKey: ["all-users"],
-    queryFn: () => allUsers(),
+    queryFn: () => getAllUsers(),
+    enabled: options?.enabled,
+  });
+};
+
+export const useUserPositions = (options?: QueryOptions) => {
+  return useQuery({
+    queryKey: ["user-position"],
+    queryFn: () => getAllUserPositions(),
     enabled: options?.enabled,
   });
 };

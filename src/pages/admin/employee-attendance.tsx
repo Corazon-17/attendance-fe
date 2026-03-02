@@ -2,9 +2,12 @@ import { DataTable } from "@/components/data-table";
 import { Combobox } from "@/components/ui/combobox";
 import { DateRangePicker } from "@/components/ui/date-range-picker";
 import { useAllAttendanceHistory } from "@/features/attendance/queries/attendance.query";
-import type { AllAttendanceHistoryPayload } from "@/features/attendance/types/attendance.types";
+import type {
+  AllAttendanceHistoryPayload,
+  AttendanceData,
+} from "@/features/attendance/types/attendance.types";
 import { useUser } from "@/features/auth/queries/auth.query";
-import { useAllUsers } from "@/features/user/queries/user.query";
+import { useUsers } from "@/features/user/queries/user.query";
 import type { UserData } from "@/features/user/types/user.types";
 import { useQueryParams } from "@/hooks/useQueryParams";
 import { formatIndonesianDate, toDateOnlyString } from "@/lib/date";
@@ -22,7 +25,7 @@ export default function EmployeeAttendance() {
     to: new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999),
   });
 
-  const { data: allUserData } = useAllUsers();
+  const { data: allUserData } = useUsers();
   const userOptions: SelectOption[] = allUserData
     ? allUserData?.map((data: UserData) => ({
         label: data.name,
@@ -45,7 +48,7 @@ export default function EmployeeAttendance() {
     },
   );
 
-  const columns: ColumnDef<any>[] = [
+  const columns: ColumnDef<{ user: { name: string } } & AttendanceData>[] = [
     {
       accessorKey: "user",
       header: "Nama",
@@ -85,13 +88,14 @@ export default function EmployeeAttendance() {
 
   return (
     <div className="flex flex-col gap-2 w-full">
-      <div className="flex gap-2 w-full md:w-64">
+      <div className="flex flex-col sm:flex-row gap-2 w-full md:w-64">
         <DateRangePicker
-          placeholder="Filter Periode"
+          placeholder="Periode"
           defaultValue={filterDate}
           onApply={(value) => setFilterDate(value)}
         />
         <Combobox
+          placeholder="Nama Karyawan"
           options={userOptions}
           onChange={(opt) => {
             updateParams({ userId: opt?.value });

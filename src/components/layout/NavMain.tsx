@@ -2,7 +2,9 @@ import {
   ChevronRight,
   ClockCheckIcon,
   FileClockIcon,
+  LucideUserStar,
   User,
+  Users,
 } from "lucide-react";
 
 import {
@@ -34,6 +36,8 @@ const menuIcons = {
   profile: <User />,
   attendance: <ClockCheckIcon />,
   "attendance-history": <FileClockIcon />,
+  employee: <Users />,
+  "employee-attendance": <LucideUserStar />,
 };
 type MenuIconKey = keyof typeof menuIcons;
 

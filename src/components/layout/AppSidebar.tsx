@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import {
   Sidebar,
   SidebarContent,
@@ -11,15 +9,27 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
+import reactLogo from "@/assets/react.svg";
 import { menuList } from "@/constants/navigation";
 import { useUser } from "@/features/auth/queries/auth.query";
+import type { Menu } from "@/types";
+import { useMemo } from "react";
 import { useLocation } from "react-router";
+import { Avatar, AvatarImage } from "../ui/avatar";
 import { NavMain } from "./NavMain";
 import { NavUser } from "./NavUser";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { pathname } = useLocation();
   const { data: userData } = useUser();
+
+  const userMenuList: Menu[] = useMemo(() => {
+    if (userData?.position.name === "HRD") {
+      return menuList;
+    }
+
+    return [menuList[0]];
+  }, [userData]);
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -28,16 +38,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <div className="flex gap-1 items-center">
-                <img
-                  src="/images/logos/logo.jpg"
-                  alt="logo"
-                  width={45}
-                  height={45}
-                  className="rounded-full"
-                />
+                <Avatar>
+                  <AvatarImage src={reactLogo} />
+                </Avatar>
                 <div className="flex flex-col text-lg font-extrabold leading-tight">
-                  <span>Ling Ling</span>
-                  <span className="text-xl leading-none">Corporation</span>
+                  <span>Company Name</span>
                 </div>
               </div>
             </SidebarMenuButton>
@@ -45,7 +50,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        {menuList.map((menu) => {
+        {userMenuList.map((menu) => {
           return (
             <NavMain
               key={menu.id}

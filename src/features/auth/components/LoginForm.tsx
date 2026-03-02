@@ -31,10 +31,6 @@ export function LoginForm({
     formState: { errors },
   } = useForm<LoginType>({
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "admin@gmail.com",
-      password: "00000000",
-    },
   });
 
   const onSubmit = (data: LoginType) => {

@@ -15,6 +15,7 @@ import {
   updateUserSchema,
   type UpdateUserType,
 } from "@/features/user/schema/user.schema";
+import { getInitials } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -64,7 +65,7 @@ export default function Profile() {
               alt={userData?.name}
             />
             <AvatarFallback className="rounded-lg">
-              {userData?.name.slice(0, 2)}
+              {getInitials(userData?.name)}
             </AvatarFallback>
           </Avatar>
           <PhotoUpload

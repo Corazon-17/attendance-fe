@@ -1,73 +1,66 @@
-# React + TypeScript + Vite
+# Attendance App - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend application for Attendance System built with **React + Vite**.
 
-Currently, two official plugins are available:
+## 🏗 Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This app connects to the Attendance API (NestJS microservices backend) and provides:
 
-## React Compiler
+- Authentication (Login/Register)
+- User management
+- Attendance tracking
+- Real-time notifications (SSE integration)
+- Responsive UI
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+---
 
-## Expanding the ESLint configuration
+## ⚙️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React (Vite)
+- React Router
+- TanStack Query
+- Axios
+- Zod
+- React Hook Form
+- Tailwind CSS
+- shadcn/ui
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📦 Main Libraries
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **React Router** → Routing & navigation
+- **TanStack Query** → Server state management & caching
+- **Axios** → HTTP client
+- **Zod** → Schema validation
+- **React Hook Form** → Form handling
+- **Tailwind CSS** → Utility-first styling
+- **shadcn/ui** → Reusable UI components
+
+---
+
+## 🔔 Real-Time Notification
+
+This app consumes Server-Sent Events (SSE) from the backend notification service to receive real-time updates.
+
+---
+
+## 🚀 Installation
+
+```bash
+cp .env.example .env
+pnpm install
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Description
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- `cp .env.example .env` → Generate .env file from .env.example
+- `pnpm install` → Install dependencies
+- `pnpm dev` → Start development server
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+App will run on:
+
+```
+http://localhost:5173
 ```
